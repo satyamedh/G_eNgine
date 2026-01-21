@@ -11,7 +11,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
 
-add_executable(G_eNgine main.cpp)
+add_executable(G_eNgine main.cpp
+        events/EventHandler.h
+        events/EventManager.cpp
+        events/EventManager.h
+        events/EventQueue.h
+        events/EventType.h
+        events/EventGlobals.cpp
+        events/EventGlobals.h
+)
 TARGET_LINK_LIBRARIES(G_eNgine ${SDL2_LIBRARIES})
 
 
