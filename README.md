@@ -8,6 +8,7 @@ Also, aiming to use ZERO AI Written code for this project :D
 TODO (In no particular order):
 
 - [x] Basic window management using SDL2
+- [x] Event system
 - [ ] Input using SDL
 - [ ] Implement Vogtinator/nGL 
 - [ ] Better logging (use spdlog?)
