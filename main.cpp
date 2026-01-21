@@ -80,6 +80,12 @@ int main() {
                     SDLEventContext quitCtx;
                     event_queue.pushEvent(EventType::Quit, quitCtx);
                     break;
+                case SDL_MOUSEMOTION:
+                case SDL_CLIPBOARDUPDATE:
+                case SDL_AUDIODEVICEADDED:
+                case SDL_TEXTEDITING:
+                case SDL_WINDOWEVENT:
+                    break; // we really don't care about these lol
                 default:
                     spdlog::warn("Unhandled SDL event type: {}", event.type);
                     break;
