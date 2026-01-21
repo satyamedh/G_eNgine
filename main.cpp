@@ -4,6 +4,7 @@
 #include <spdlog/spdlog.h>
 
 #include "GameEngineGlobals.h"
+#include "gl.h"
 
 #include "events/EventManager.h"
 #include "events/EventQueue.h"
@@ -47,7 +48,7 @@ int main() {
     }
 
     SDL_Window *window = SDL_CreateWindow(GAME_TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, GAME_RESOLUTION_X, GAME_RESOLUTION_Y, 0);
-    SDL_Surface *screen = SDL_GetWindowSurface(window);
+    SDL_Surface *screen = SDL_CreateRGBSurfaceWithFormat(0, GAME_RESOLUTION_X, GAME_RESOLUTION_Y, 16, SDL_PIXELFORMAT_RGB565);
 
     SDL_Event event;
 
@@ -60,9 +61,15 @@ int main() {
 
     isGameRunning = true;
 
+    nglInit();
+    nglSetBuffer(static_cast<COLOR *>(screen->pixels));
+
     while (isGameRunning) {
         // draw a fully black screen
-        SDL_FillRect(screen, nullptr, SDL_MapRGB(screen->format, 0, 0, 0));
+        glColor3f(0.4f, 0.7f, 1.0f); // sky blue
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        nglDisplay();
+        SDL_BlitSurface(screen, nullptr, SDL_GetWindowSurface(window), nullptr);
         SDL_UpdateWindowSurface(window);
 
         // poll events
@@ -86,6 +93,9 @@ int main() {
     spdlog::debug("Exiting main loop...");
 
     // cleanup
+    nglUninit();
+
+    SDL_FreeSurface(screen);
     SDL_DestroyWindow(window);
     SDL_Quit();
 

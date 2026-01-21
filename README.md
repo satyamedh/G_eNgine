@@ -10,8 +10,9 @@ TODO (In no particular order):
 - [x] Basic window management using SDL2
 - [x] Event system
 - [ ] Input using SDL
-- [ ] Implement Vogtinator/nGL 
+- [x] Implement Vogtinator/nGL 
 - [x] Better logging (use spdlog?)
+- [ ] Rendering engine (shapes, textures, colors, etc)
 - [ ] Scripting capabilities using wren
 - [ ] Direct blender &rarr; game workfow
 - [ ] Collision detection

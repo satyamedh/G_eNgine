@@ -14,6 +14,22 @@ include_directories(${SDL2_INCLUDE_DIRS})
 find_package(spdlog REQUIRED)
 find_package(fmt REQUIRED)
 
+add_library(nGL STATIC
+        nGL/fastmath.cpp
+        nGL/gl.cpp
+        nGL/gldrawarray.cpp
+        nGL/texturetools.cpp
+)
+
+target_include_directories(nGL PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+target_include_directories(nGL PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/nGL
+        ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
 add_executable(G_eNgine main.cpp
         events/EventHandler.h
         events/EventManager.cpp
@@ -26,8 +42,9 @@ add_executable(G_eNgine main.cpp
         events/SDLEvents/SDLEvents.h
         GameEngineGlobals.cpp
         GameEngineGlobals.h
+        glconfig.h
 )
-TARGET_LINK_LIBRARIES(G_eNgine ${SDL2_LIBRARIES} spdlog::spdlog fmt::fmt)
+target_link_libraries(G_eNgine ${SDL2_LIBRARIES} spdlog::spdlog fmt::fmt nGL)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_definitions(G_eNgine PRIVATE DEBUG=1)
