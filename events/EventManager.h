@@ -13,13 +13,13 @@ class EventManager {
 public:
     EventManager() = default;
 
-    void registerEvent(EventType eventType, EventHandler event);
-    void deregisterEvent(EventType eventType, EventHandler event);
+    void registerEvent(EventType eventType, EventHandler* handler);
+    void deregisterEvent(EventType eventType, EventHandler* handler);
 
     void dispatchEvents(EventQueue* queue, bool finish = false);
 
 private:
-    std::unordered_map<EventType, std::vector<EventHandler>> eventMap;
+    std::unordered_map<EventType, std::vector<EventHandler*>> eventMap;
 };
 
 

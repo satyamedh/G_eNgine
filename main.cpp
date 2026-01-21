@@ -1,9 +1,12 @@
 #include <iostream>
 
 #include <SDL2/SDL.h>
-#include <string>
+
+#include "GameEngineGlobals.h"
 
 #include "events/EventManager.h"
+#include "events/EventQueue.h"
+#include "events/SDLEvents/SDLEvents.h"
 
 #ifndef GAME_TITLE
 #define GAME_TITLE "G_eNgine"
@@ -40,11 +43,16 @@ int main() {
 
     SDL_Event event;
 
+    EventManager event_manager;
+    EventQueue event_queue;
+
+    SDLEvents sdlEvents(&event_manager);
+
     std::cout <<  "Entering main loop..." << std::endl;
 
-    bool running = true;
+    isGameRunning = true;
 
-    while (running) {
+    while (isGameRunning) {
         // draw a fully black screen
         SDL_FillRect(screen, nullptr, SDL_MapRGB(screen->format, 0, 0, 0));
         SDL_UpdateWindowSurface(window);
@@ -53,13 +61,18 @@ int main() {
         if (SDL_PollEvent(&event)) {
             switch (event.type) {
                 case SDL_QUIT:
-                    std::cout << "Quitting..." << std::endl;
-                    running = false; // will quit next loop
+                    std::cout << "Quitting... Creating quit event" << std::endl;
+                    SDLEventContext quitCtx;
+                    event_queue.pushEvent(EventType::Quit, quitCtx);
                     break;
             }
         }
+
+        event_manager.dispatchEvents(&event_queue, false);
+
     }
 
+    std::cout << GAME_TITLE << ": Game Loop exited" << std::endl;
 
     // cleanup
     SDL_DestroyWindow(window);

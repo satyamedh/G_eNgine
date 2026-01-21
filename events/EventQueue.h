@@ -17,8 +17,7 @@ struct EventQueueEntry {
 
 class EventQueue {
 public:
-    EventQueue();
-    ~EventQueue();
+    EventQueue() = default;
 
     void pushEvent(const EventType eventType, EventContextBase eventData) {
         eventQueue.push(EventQueueEntry(eventType, eventData));

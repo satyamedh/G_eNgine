@@ -18,7 +18,7 @@ public:
 
     uint32_t handlerId = globalHandlerIdCounter++;
 
-    virtual void fire(EventContextBase ctx);
+    virtual void fire(EventContextBase ctx) = 0;
 };
 
 #endif //G_ENGINE_EVENT_H

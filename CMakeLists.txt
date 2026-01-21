@@ -19,6 +19,10 @@ add_executable(G_eNgine main.cpp
         events/EventType.h
         events/EventGlobals.cpp
         events/EventGlobals.h
+        events/SDLEvents/SDLEvents.cpp
+        events/SDLEvents/SDLEvents.h
+        GameEngineGlobals.cpp
+        GameEngineGlobals.h
 )
 TARGET_LINK_LIBRARIES(G_eNgine ${SDL2_LIBRARIES})
 
