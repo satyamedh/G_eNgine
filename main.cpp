@@ -3,6 +3,8 @@
 #include <SDL2/SDL.h>
 #include <string>
 
+#include "events/EventManager.h"
+
 #ifndef GAME_TITLE
 #define GAME_TITLE "G_eNgine"
 #endif
@@ -24,6 +26,10 @@ int main() {
 
     std::cout << "Launching " << GAME_TITLE << "!..." << std::endl;
 
+    std::cout << "Game version " << GAME_VERSION << std::endl;
+
+    std::cout << "Initializing SDL..." << std::endl;
+
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
         return -1;
@@ -33,6 +39,8 @@ int main() {
     SDL_Surface *screen = SDL_GetWindowSurface(window);
 
     SDL_Event event;
+
+    std::cout <<  "Entering main loop..." << std::endl;
 
     bool running = true;
 

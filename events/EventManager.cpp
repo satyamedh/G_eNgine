@@ -18,7 +18,7 @@ void EventManager::dispatchEvents(EventQueue *queue, bool finish) {
     uint32_t eventsDispatched = 0;
 
     while (!queue->isEmpty() && (finish || eventsDispatched < MAX_DISPATCH_EVENTS_PER_CYCLE)) {
-        EventQueueEntry entry;
+        EventQueueEntry entry{};
         queue->popEvent(entry);
 
         auto handlersIt = eventMap.find(entry.eventType);
