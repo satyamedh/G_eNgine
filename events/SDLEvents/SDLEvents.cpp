@@ -5,6 +5,7 @@
 #include "SDLEvents.h"
 
 #include <iostream>
+#include <spdlog/spdlog.h>
 
 #include "../EventManager.h"
 #include "../../GameEngineGlobals.h"
@@ -23,7 +24,7 @@ void SDLEvents::fire(EventContextBase ctx) {
     // handle quit event
     SDLEventContext quitCtx = static_cast<SDLEventContext&>(ctx);
     // For now, just print a message
-    std::cout << "SDLEvents: Quit event received. Stopping the game loop." << std::endl;
+    spdlog::info("SDLEvents: Quit event received. Stopping the game loop.");
 
     isGameRunning = false;
 }

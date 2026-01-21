@@ -11,6 +11,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
 
+find_package(spdlog REQUIRED)
+find_package(fmt REQUIRED)
+
 add_executable(G_eNgine main.cpp
         events/EventHandler.h
         events/EventManager.cpp
@@ -24,8 +27,11 @@ add_executable(G_eNgine main.cpp
         GameEngineGlobals.cpp
         GameEngineGlobals.h
 )
-TARGET_LINK_LIBRARIES(G_eNgine ${SDL2_LIBRARIES})
+TARGET_LINK_LIBRARIES(G_eNgine ${SDL2_LIBRARIES} spdlog::spdlog fmt::fmt)
 
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    target_compile_definitions(G_eNgine PRIVATE DEBUG=1)
+endif()
 
 # Compiler options
 if(CMAKE_BUILD_TYPE STREQUAL "Release")

@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include <SDL2/SDL.h>
+#include <spdlog/spdlog.h>
 
 #include "GameEngineGlobals.h"
 
@@ -24,17 +25,24 @@
 #define GAME_RESOLUTION_Y 240
 #endif
 
+#ifndef DEBUG
+#define DEBUG 0
+#endif
 
 int main() {
+    if constexpr (DEBUG) {
+        spdlog::set_level(spdlog::level::debug);
+        spdlog::debug("Debug logging enabled");
+    } else {
+        spdlog::set_level(spdlog::level::info);
+    }
 
-    std::cout << "Launching " << GAME_TITLE << "!..." << std::endl;
+    spdlog::info("Launching {} version {}", GAME_TITLE, GAME_VERSION);
 
-    std::cout << "Game version " << GAME_VERSION << std::endl;
-
-    std::cout << "Initializing SDL..." << std::endl;
+    spdlog::debug("Initializing SDL...");
 
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-        std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
+        spdlog::error("SDL_Init Error: " + std::string(SDL_GetError()));
         return -1;
     }
 
@@ -48,7 +56,7 @@ int main() {
 
     SDLEvents sdlEvents(&event_manager);
 
-    std::cout <<  "Entering main loop..." << std::endl;
+    spdlog::debug("Entering main loop...");
 
     isGameRunning = true;
 
@@ -61,7 +69,7 @@ int main() {
         if (SDL_PollEvent(&event)) {
             switch (event.type) {
                 case SDL_QUIT:
-                    std::cout << "Quitting... Creating quit event" << std::endl;
+                    spdlog::debug("Quitting... Creating quit event");
                     SDLEventContext quitCtx;
                     event_queue.pushEvent(EventType::Quit, quitCtx);
                     break;
@@ -72,13 +80,13 @@ int main() {
 
     }
 
-    std::cout << GAME_TITLE << ": Game Loop exited" << std::endl;
+    spdlog::debug("Exiting main loop...");
 
     // cleanup
     SDL_DestroyWindow(window);
     SDL_Quit();
 
-    std::cout << "Goodbye!" << std::endl;
+    spdlog::info("Goodbye!");
 
     return 0;
 }

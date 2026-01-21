@@ -11,7 +11,7 @@ TODO (In no particular order):
 - [x] Event system
 - [ ] Input using SDL
 - [ ] Implement Vogtinator/nGL 
-- [ ] Better logging (use spdlog?)
+- [x] Better logging (use spdlog?)
 - [ ] Scripting capabilities using wren
 - [ ] Direct blender &rarr; game workfow
 - [ ] Collision detection

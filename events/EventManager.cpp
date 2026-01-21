@@ -6,6 +6,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <spdlog/spdlog.h>
 
 void EventManager::registerEvent(EventType eventType, EventHandler* handler) {
     eventMap[eventType].push_back(handler);
@@ -29,7 +30,7 @@ void EventManager::dispatchEvents(EventQueue *queue, bool finish) {
             }
         } else {
             // No handlers registered for this event type! error out...
-            std::cerr << "EventManager: No handlers registered for event type " << entry.eventType << std::endl;
+            spdlog::error("EventManager: No handlers registered for event type {}", static_cast<int>(entry.eventType));
         }
 
         eventsDispatched++;
