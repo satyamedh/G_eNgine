@@ -73,6 +73,9 @@ int main() {
                     SDLEventContext quitCtx;
                     event_queue.pushEvent(EventType::Quit, quitCtx);
                     break;
+                default:
+                    spdlog::warn("Unhandled SDL event type: {}", event.type);
+                    break;
             }
         }
 
