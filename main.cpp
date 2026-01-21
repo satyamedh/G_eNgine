@@ -31,11 +31,32 @@ int main() {
     SDL_Window *window = SDL_CreateWindow(GAME_TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, GAME_RESOLUTION_X, GAME_RESOLUTION_Y, 0);
     SDL_Surface *screen = SDL_GetWindowSurface(window);
 
-    while (true) {
+    SDL_Event event;
+
+    bool running = true;
+
+    while (running) {
         // draw a fully black screen
         SDL_FillRect(screen, nullptr, SDL_MapRGB(screen->format, 0, 0, 0));
         SDL_UpdateWindowSurface(window);
+
+        // poll events
+        if (SDL_PollEvent(&event)) {
+            switch (event.type) {
+                case SDL_QUIT:
+                    std::cout << "Quitting..." << std::endl;
+                    running = false; // will quit next loop
+                    break;
+            }
+        }
     }
+
+
+    // cleanup
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+
+    std::cout << "Goodbye!" << std::endl;
 
     return 0;
 }
