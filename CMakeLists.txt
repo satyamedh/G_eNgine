@@ -43,6 +43,8 @@ add_executable(G_eNgine main.cpp
         GameEngineGlobals.cpp
         GameEngineGlobals.h
         glconfig.h
+        graphics/nGLHandler/nGLHandler.cpp
+        graphics/nGLHandler/nGLHandler.h
 )
 target_link_libraries(G_eNgine ${SDL2_LIBRARIES} spdlog::spdlog fmt::fmt nGL)
 

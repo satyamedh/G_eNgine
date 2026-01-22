@@ -9,6 +9,7 @@
 #include "events/EventManager.h"
 #include "events/EventQueue.h"
 #include "events/SDLEvents/SDLEvents.h"
+#include "graphics/nGLHandler/nGLHandler.h"
 
 #ifndef GAME_TITLE
 #define GAME_TITLE "G_eNgine"
@@ -57,20 +58,18 @@ int main() {
 
     SDLEvents sdlEvents(&event_manager);
 
+    nGLHandler nglHandler;
+    nglHandler.init(screen, window);
+    nglHandler.setBackgroundColor(0.4f, 0.7f, 1.0f);
+
     spdlog::debug("Entering main loop...");
 
     isGameRunning = true;
 
-    nglInit();
-    nglSetBuffer(static_cast<COLOR *>(screen->pixels));
-
     while (isGameRunning) {
-        // draw a fully black screen
-        glColor3f(0.4f, 0.7f, 1.0f); // sky blue
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        nglDisplay();
-        SDL_BlitSurface(screen, nullptr, SDL_GetWindowSurface(window), nullptr);
-        SDL_UpdateWindowSurface(window);
+        nglHandler.clearScreen();
+        // rendering would go here
+        nglHandler.display();
 
         // poll events
         if (SDL_PollEvent(&event)) {
@@ -99,7 +98,8 @@ int main() {
     spdlog::debug("Exiting main loop...");
 
     // cleanup
-    nglUninit();
+
+    nglHandler.uninit();
 
     SDL_FreeSurface(screen);
     SDL_DestroyWindow(window);
