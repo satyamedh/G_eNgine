@@ -14,7 +14,7 @@ TODO (In no particular order):
 - [x] Better logging (use spdlog?)
 - [ ] Rendering engine (shapes, textures, colors, etc)
 - [ ] Scripting capabilities using wren
-- [ ] Direct blender &rarr; game workfow
+- [ ] Direct blender &rarr; game workflow
 - [ ] Collision detection
 - [ ] Physics engine
 - [ ] aaand a LOT more...
