@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 4.1)
+cmake_minimum_required(VERSION 3.28.3)
 project(G_eNgine)
 
 cmake_policy(SET CMP0069 NEW) # for flto check_ipo_supported
